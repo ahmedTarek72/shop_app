@@ -24,7 +24,7 @@ class _MyPageViewState extends State<MyPageView> {
         actions:<Widget> [
           TextButton(onPressed: (){
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignIN(),), (route) => false);
-          }, child:  Text("Skip",style: TextStyle(color: Colors.deepOrange),))
+          }, child:  Text("SKIP",style: TextStyle(color: Colors.deepOrange),))
 
         ],
         backgroundColor: Colors.white,
