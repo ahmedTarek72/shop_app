@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_app/layout/page_view/shop_page_view.dart';
 
 void main() {
@@ -12,14 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-
-      home:MyPageView(),
+      home: MyPageView(),
       theme: ThemeData(
-          fontFamily: "Jannah"
-      ),
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(
+            elevation: 0.0,
+            backgroundColor: Colors.white,
+            systemOverlayStyle:
+                SystemUiOverlayStyle(statusBarColor: Colors.white),
+          ),
+          fontFamily: "Jannah"),
     );
   }
 }
-
-
