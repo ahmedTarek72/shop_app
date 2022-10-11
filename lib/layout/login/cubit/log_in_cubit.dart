@@ -10,7 +10,7 @@ class LogInCubit extends Cubit<LogInStates> {
   LogInCubit() : super(LogInInitial());
 
   static LogInCubit get(context) => BlocProvider.of(context);
-  bool isPassword = false;
+  bool isPassword = true;
   void changeObscure(){
      isPassword = !isPassword;
      emit(IsObscurePasswordState());
