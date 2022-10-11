@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/login/cubit/log_in_cubit.dart';
@@ -36,72 +37,88 @@ class LogIn extends StatelessWidget {
                               .bodyText1
                               ?.copyWith(color: Colors.grey),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.always,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "please Enter your Email Address";
                             }
+
+                            return null;
                           },
                           controller: emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: "Email",
                               prefixIcon: Icon(Icons.email_outlined),
                               border: OutlineInputBorder()),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.always,
                           keyboardType: TextInputType.visiblePassword,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "please Enter your password";
                             }
+                            return null;
                           },
                           obscureText: LogInCubit.get(context).isPassword,
                           controller: passwordController,
                           decoration: InputDecoration(
                               labelText: "Password",
-                              prefixIcon: Icon(Icons.lock_outline_rounded),
+                              prefixIcon:
+                                  const Icon(Icons.lock_outline_rounded),
                               suffixIcon: IconButton(
                                 icon: LogInCubit.get(context).isPassword
-                                    ? Icon(Icons.visibility_off_outlined)
-                                    : Icon(Icons.visibility_outlined),
+                                    ? const Icon(Icons.visibility_off_outlined)
+                                    : const Icon(Icons.visibility_outlined),
                                 onPressed: () {
                                   LogInCubit.get(context).changeObscure();
                                 },
                               ),
-                              border: OutlineInputBorder()),
+                              border: const OutlineInputBorder()),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {}
-                              },
-                              child: Text("LOGIN")),
+                          child: ConditionalBuilder(
+                            condition: state is! LoginLoadingState,
+                            builder: (context) => ElevatedButton(
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    LogInCubit.get(context).userLogIn(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                  }
+                                },
+                                child: const Text("LOGIN")),
+                            fallback: (context) =>
+                                Center(child: CircularProgressIndicator()),
+                          ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Don\'t have an account?"),
+                            const Text("Don\'t have an account?"),
                             TextButton(
                                 onPressed: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => RegisterScreen(),
+                                        builder: (context) =>
+                                            const RegisterScreen(),
                                       ));
                                 },
                                 child: Text("register".toUpperCase()))
