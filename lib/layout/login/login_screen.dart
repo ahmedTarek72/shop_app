@@ -1,8 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/layout/login/cubit/log_in_cubit.dart';
 import 'package:shop_app/layout/register/shop_register.dart';
+import 'package:shop_app/models/loginModel/login_model.dart';
 
 class LogIn extends StatelessWidget {
   LogIn({Key? key}) : super(key: key);
@@ -15,7 +17,31 @@ class LogIn extends StatelessWidget {
     return BlocProvider(
       create: (context) => LogInCubit(),
       child: BlocConsumer<LogInCubit, LogInStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is LoginSuccessState){
+            if (state.model.status == true ){
+              Fluttertoast.showToast(
+                  msg: state.model.message.toString(),
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
+            }else{
+              Fluttertoast.showToast(
+                  msg: state.model.message.toString(),
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
+            }
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),

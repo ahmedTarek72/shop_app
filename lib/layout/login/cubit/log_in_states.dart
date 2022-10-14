@@ -4,7 +4,11 @@ part of 'log_in_cubit.dart';
 abstract class LogInStates {}
 
 class LogInInitial extends LogInStates {}
-class LoginSuccessState extends LogInStates{}
+class LoginSuccessState extends LogInStates{
+ final LoginModel model;
+
+  LoginSuccessState(this.model);
+}
 class LoginLoadingState extends LogInStates{}
 class LoginErrorState extends LogInStates{
   final String error;
