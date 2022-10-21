@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/componnent/reusable.dart';
 import 'package:shop_app/layout/login/login_screen.dart';
 import 'package:shop_app/models/on_boarding_model.dart';
+import 'package:shop_app/network/remote/cache_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 bool isLast = false;
@@ -24,12 +25,16 @@ class _MyPageViewState extends State<MyPageView> {
         actions: <Widget>[
           TextButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LogIn(),
-                    ),
-                    (route) => false);
+              CacheHelper.setPrefs(key: "OnBoarding", value: true).then((value) {
+                if (value == true){
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LogIn(),
+                      ),
+                          (route) => false);
+                }
+              });
               },
               child: Text(
                 "SKIP",
@@ -99,12 +104,16 @@ Widget buildOnBoardingScreen(OnBoardingModel model, context) {
                 backgroundColor: Colors.deepOrange,
                 onPressed: () {
                   if (isLast) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LogIn(),
-                        ),
-                        (route) => false);
+                    CacheHelper.setPrefs(key: "OnBoarding", value: true).then((value) {
+                      if (value == true){
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LogIn(),
+                            ),
+                                (route) => false);
+                      }
+                    });
                   } else {
                     pageController.nextPage(
                         duration: Duration(milliseconds: 750),

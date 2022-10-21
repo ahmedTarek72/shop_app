@@ -1,16 +1,20 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/layout/login/login_screen.dart';
 import 'package:shop_app/layout/page_view/shop_page_view.dart';
 import 'package:shop_app/network/remote/cache_helper.dart';
 
 import 'package:shop_app/network/remote/dio_helper.dart';
 import 'package:shop_app/network/shared/bloc_observer.dart';
 
-void main()  {
-
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+ await CacheHelper.init();
+ var onBoarding = CacheHelper().getData(key: 'OnBoarding');
+ print(onBoarding);
 
 
   Bloc.observer = MyBlocObserver();
@@ -23,17 +27,28 @@ void main()  {
   ),
   );
   AppDio.init();
-  runApp(const MyApp());
+  runApp( MyApp(onBoarding: onBoarding,
+
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool onBoarding;
+
+  MyApp({required this.onBoarding});
+
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyPageView(),
+      home: ConditionalBuilder(
+        condition: onBoarding == true ,
+        fallback: (context) => MyPageView(),
+        builder: (context) => LogIn(),
+
+      ),
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: AppBarTheme(
