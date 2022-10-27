@@ -5,7 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/componnent/reusable.dart';
 import 'package:shop_app/layout/login/cubit/log_in_cubit.dart';
 import 'package:shop_app/layout/register/shop_register.dart';
+import 'package:shop_app/layout/shop_layout/shop_layout.dart';
 import 'package:shop_app/models/loginModel/login_model.dart';
+import 'package:shop_app/network/remote/cache_helper.dart';
 
 class LogIn extends StatelessWidget {
   LogIn({Key? key}) : super(key: key);
@@ -19,11 +21,19 @@ class LogIn extends StatelessWidget {
       create: (context) => LogInCubit(),
       child: BlocConsumer<LogInCubit, LogInStates>(
         listener: (context, state) {
-          if (state is LoginSuccessState){
-            if (state.model.status == true ){
-             showToast(text: state.model.message.toString(), color: ToastStates.Success);
-            }else{
-              showToast(text: state.model.message.toString(), color: ToastStates.Error);
+          if (state is LoginSuccessState) {
+            if (state.model.status == true) {
+              CacheHelper.setPrefs(key: "Token", value: state.model.data?.token)
+                  .then((value) => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShopLayout(),
+                      ),
+                      (route) => false));
+            } else {
+              showToast(
+                  text: state.model.message.toString(),
+                  color: ToastStates.Error);
             }
           }
         },
@@ -52,7 +62,7 @@ class LogIn extends StatelessWidget {
                           height: 15,
                         ),
                         TextFormField(
-                          autovalidateMode: AutovalidateMode.always,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -71,7 +81,7 @@ class LogIn extends StatelessWidget {
                           height: 15,
                         ),
                         TextFormField(
-                          autovalidateMode: AutovalidateMode.always,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           keyboardType: TextInputType.visiblePassword,
                           validator: (value) {
                             if (value!.isEmpty) {

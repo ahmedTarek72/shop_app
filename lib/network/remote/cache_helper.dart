@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CacheHelper{
- static SharedPreferences? sharedPreferences;
-  static Future<SharedPreferences?> init() async{
-
-  sharedPreferences  = await SharedPreferences.getInstance();
+class CacheHelper {
+  static SharedPreferences? sharedPreferences;
+  static Future<SharedPreferences?> init() async {
+    sharedPreferences = await SharedPreferences.getInstance();
   }
 
   static Future<bool?> setPrefs({
@@ -23,7 +23,11 @@ class CacheHelper{
     return await sharedPreferences?.setDouble(key, value);
   }
 
-dynamic getData({required String key}){
+  static dynamic getData({required String key}) {
     return sharedPreferences?.get(key);
-}
+  }
+
+  static Future<bool?> clearData({required String key}) async {
+    return await sharedPreferences?.remove(key);
+  }
 }
