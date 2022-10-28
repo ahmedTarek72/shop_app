@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:shop_app/models/on_boarding_model.dart';
+
+import '../layout/login/login_screen.dart';
+import '../network/remote/cache_helper.dart';
  void showToast ({
  required String text,
   required ToastStates color,
@@ -41,3 +44,17 @@ List<OnBoardingModel> boarding =[
   OnBoardingModel(title: "title2", body: "body2"),
   OnBoardingModel(title: "title3", body: "body3")
 ];
+void logOut(context){
+ {
+  CacheHelper.clearData(key: 'Token').then((value) {
+   if (value == true) {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+         builder: (context) => LogIn(),
+        ),
+            (route) => false);
+   }
+  });
+ }
+}

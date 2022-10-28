@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/layout/login/login_screen.dart';
 import 'package:shop_app/layout/page_view/shop_page_view.dart';
+import 'package:shop_app/layout/shop_layout/cubit/shop_layout_cubit.dart';
 import 'package:shop_app/layout/shop_layout/shop_layout.dart';
 import 'package:shop_app/network/remote/cache_helper.dart';
 
@@ -54,17 +55,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: widget,
-      theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          appBarTheme: AppBarTheme(
-            elevation: 0.0,
-            backgroundColor: Colors.white,
-            systemOverlayStyle:
-                SystemUiOverlayStyle(statusBarColor: Colors.white),
-          ),
-          fontFamily: "Jannah"),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ShopLayoutCubit>(
+          create: (BuildContext context) => ShopLayoutCubit(),
+        ),
+
+      ],
+      child:  MaterialApp(
+        home: widget,
+        theme: ThemeData(
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.blue,
+          selectedItemColor: Colors.deepOrange),
+            unselectedWidgetColor: Colors.grey,
+
+            appBarTheme: AppBarTheme(
+              elevation: 0.0,
+              backgroundColor: Colors.white,
+              systemOverlayStyle:
+              SystemUiOverlayStyle(statusBarColor: Colors.white),
+            ),
+            fontFamily: "Jannah"),
+      ),
     );
   }
 }
