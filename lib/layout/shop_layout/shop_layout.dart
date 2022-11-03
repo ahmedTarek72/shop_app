@@ -22,9 +22,13 @@ class ShopLayout extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
 
 
+
         currentIndex:   ShopLayoutCubit.get(context).currentIndex,
 
 
+        backgroundColor: Colors.grey[100],
+        selectedItemColor: Colors.deepOrange,
+        type: BottomNavigationBarType.fixed,
 
 
         onTap: (index) {

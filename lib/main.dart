@@ -1,3 +1,5 @@
+
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,12 +14,14 @@ import 'package:shop_app/network/remote/cache_helper.dart';
 import 'package:shop_app/network/remote/dio_helper.dart';
 import 'package:shop_app/network/shared/bloc_observer.dart';
 
+import 'componnent/reusable.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   var widget;
   bool? onBoarding = CacheHelper.getData(key: 'OnBoarding');
-  String? token = CacheHelper.getData(key: 'Token');
+  token = CacheHelper.getData(key: 'Token');
   print(onBoarding);
   print(token);
   if (onBoarding != null) {
@@ -58,24 +62,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ShopLayoutCubit>(
-          create: (BuildContext context) => ShopLayoutCubit(),
+          create: (BuildContext context) => ShopLayoutCubit()..getHomeData(),
         ),
 
       ],
       child:  MaterialApp(
         home: widget,
-        theme: ThemeData(
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.blue,
-          selectedItemColor: Colors.deepOrange),
-            unselectedWidgetColor: Colors.grey,
-
-            appBarTheme: AppBarTheme(
-              elevation: 0.0,
-              backgroundColor: Colors.white,
-              systemOverlayStyle:
-              SystemUiOverlayStyle(statusBarColor: Colors.white),
-            ),
-            fontFamily: "Jannah"),
+       theme: ThemeData(
+         scaffoldBackgroundColor: Colors.white,
+           appBarTheme:  AppBarTheme(backgroundColor: Colors.white,elevation: 0.0)),
       ),
     );
   }

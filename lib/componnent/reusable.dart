@@ -6,6 +6,7 @@ import 'package:shop_app/models/on_boarding_model.dart';
 
 import '../layout/login/login_screen.dart';
 import '../network/remote/cache_helper.dart';
+String token = token;
  void showToast ({
  required String text,
   required ToastStates color,

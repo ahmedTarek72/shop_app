@@ -9,7 +9,6 @@ class AppDio {
       receiveDataWhenStatusError: true,
       headers: {
 
-        "Content-Type":"application/json",
       },
     ));
   }
@@ -21,11 +20,26 @@ class AppDio {
     required Map<String, dynamic> data,
   }) async {
     dio?.options.headers ={
+      "Content-Type":"application/json",
       "lang":"ar",
       "Authorization":token??"",
 
     };
 
-   return dio?.post(url,queryParameters: query,data: data);
+   return  await dio?.post(url,queryParameters: query,data: data);
+  }
+  static Future<Response?> getData({
+  required String url,
+     String? token ,
+     Map<String,dynamic>? query,
+
+}) async{
+    dio?.options.headers ={
+      "Content-Type":"application/json",
+      "lang":"ar",
+      "Authorization":token??"",
+
+    };
+    return  await dio?.get(url,queryParameters: query);
   }
 }
