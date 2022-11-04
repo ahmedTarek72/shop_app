@@ -42,11 +42,15 @@ class ProductsScreen extends StatelessWidget {
       width: double.infinity,
       child: CarouselSlider(
         options: CarouselOptions(
-          aspectRatio: 2.0,
+          aspectRatio: 1.0,
           enlargeCenterPage: true,
           enableInfiniteScroll: false,
-          initialPage: 2,
+          initialPage: 1,
+          height: 200,
+          autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+          reverse: false,
           autoPlay: true,
+
         ),
         items: model?.data?.banners?.map((i) {
           return Builder(
@@ -55,6 +59,7 @@ class ProductsScreen extends StatelessWidget {
                 imageUrl: i.image?? "",
                 placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => Icon(Icons.error),
+
 
               );
             },
