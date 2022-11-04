@@ -12,13 +12,14 @@ import 'package:shop_app/layout/shop_layout/cubit/shop_layout_state.dart';
 
 import 'package:shop_app/layout/shop_layout/shop_layout.dart';
 import 'package:shop_app/models/HomeModel.dart';
+import 'package:shop_app/models/on_boarding_model.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/remote/cache_helper.dart';
 import 'package:shop_app/network/remote/dio_helper.dart';
 
 
 
-class ShopLayoutCubit extends Cubit<ShopLayoutStates> {
+class ShopLayoutCubit extends Cubit<ShopLayoutStates>  {
   ShopLayoutCubit() : super(ShopLayoutInitial());
 static  ShopLayoutCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
@@ -35,7 +36,9 @@ static  ShopLayoutCubit get(context) => BlocProvider.of(context);
     SettingsScreen(),
 
   ];
-HomeModel? homeModel;
+   HomeModel?  homeModel ;
+
+
 void getHomeData(
 
 ){

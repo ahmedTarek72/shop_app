@@ -17,7 +17,7 @@ class ShopLayout extends StatelessWidget {
   },
   builder: (context, state) {
     return Scaffold(
-      appBar: AppBar(),
+
       body: ShopLayoutCubit.get(context).Screens[ShopLayoutCubit.get(context).currentIndex],
       bottomNavigationBar: BottomNavigationBar(
 

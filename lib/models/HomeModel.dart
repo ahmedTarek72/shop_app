@@ -45,8 +45,8 @@ class Data {
     List<Products>? products,
 
   }) {
-    _banners = banners;
-    _products = products;
+    banners = banners ?? [];
+    products = products;
 
   }
 
@@ -179,7 +179,7 @@ class Products {
 class Banners {
   Banners({
     num? id,
-    String? image,
+     required String image ,
     dynamic category,
     dynamic product,
   }) {
@@ -190,21 +190,21 @@ class Banners {
 
   Banners.fromJson(dynamic json) {
     _id = json['id'];
-    _image = json['image'];
+    _image = json['image'] ?? "";
 
   }
   num? _id;
-  String? _image;
+  String? _image ;
 
 
   num? get id => _id;
-  String? get image => _image;
+  String? get image => _image ?? "";
 
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['image'] = _image;
+    map['image'] = _image ?? "";
 
     return map;
   }

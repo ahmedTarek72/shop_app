@@ -31,12 +31,13 @@ class AppDio {
   static Future<Response?> getData({
   required String url,
      String? token ,
+    String lang = "en",
      Map<String,dynamic>? query,
 
 }) async{
     dio?.options.headers ={
       "Content-Type":"application/json",
-      "lang":"ar",
+      "lang":lang,
       "Authorization":token??"",
 
     };

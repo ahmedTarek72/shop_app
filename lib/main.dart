@@ -9,6 +9,7 @@ import 'package:shop_app/layout/login/login_screen.dart';
 import 'package:shop_app/layout/page_view/shop_page_view.dart';
 import 'package:shop_app/layout/shop_layout/cubit/shop_layout_cubit.dart';
 import 'package:shop_app/layout/shop_layout/shop_layout.dart';
+import 'package:shop_app/models/HomeModel.dart';
 import 'package:shop_app/network/remote/cache_helper.dart';
 
 import 'package:shop_app/network/remote/dio_helper.dart';
@@ -17,11 +18,12 @@ import 'package:shop_app/network/shared/bloc_observer.dart';
 import 'componnent/reusable.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   var widget;
   bool? onBoarding = CacheHelper.getData(key: 'OnBoarding');
-  token = CacheHelper.getData(key: 'Token');
+  token = CacheHelper.getData(key: 'Token') ?? "";
   print(onBoarding);
   print(token);
   if (onBoarding != null) {
@@ -45,7 +47,7 @@ void main() async {
       );
   AppDio.init();
   runApp(MyApp(
-    token: token ?? "",
+    token: token,
     widget: widget,
   ));
 }
@@ -70,7 +72,9 @@ class MyApp extends StatelessWidget {
         home: widget,
        theme: ThemeData(
          scaffoldBackgroundColor: Colors.white,
-           appBarTheme:  AppBarTheme(backgroundColor: Colors.white,elevation: 0.0)),
+           appBarTheme:  AppBarTheme(
+               systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.white),
+               backgroundColor: Colors.white,elevation: 0.0)),
       ),
     );
   }
