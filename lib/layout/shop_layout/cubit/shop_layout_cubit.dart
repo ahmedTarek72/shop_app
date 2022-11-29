@@ -11,7 +11,8 @@ import 'package:shop_app/layout/settings/settings_screen.dart';
 import 'package:shop_app/layout/shop_layout/cubit/shop_layout_state.dart';
 
 import 'package:shop_app/layout/shop_layout/shop_layout.dart';
-import 'package:shop_app/models/HomeModel.dart';
+
+import 'package:shop_app/models/loginModel/HomeModel.dart';
 import 'package:shop_app/models/on_boarding_model.dart';
 import 'package:shop_app/network/end_points.dart';
 import 'package:shop_app/network/remote/cache_helper.dart';
@@ -36,7 +37,7 @@ static  ShopLayoutCubit get(context) => BlocProvider.of(context);
     SettingsScreen(),
 
   ];
-   HomeModel?  homeModel ;
+   HomeModel homeModel =  HomeModel();
 
 
 void getHomeData(
@@ -46,7 +47,7 @@ void getHomeData(
   AppDio.getData(url: Home).then((value) {
     emit(GetHomeSuccessState());
     homeModel = HomeModel.fromJson(value?.data);
-    print(homeModel?.data?.banners?.length);
+
     }).catchError((error){
     emit( GetHomeErrorState());
     print(error.toString());

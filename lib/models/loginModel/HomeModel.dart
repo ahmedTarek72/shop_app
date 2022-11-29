@@ -4,7 +4,7 @@
 class HomeModel {
   HomeModel({
     bool? status,
-     Data? data,
+    Data? data,
   }) {
     _status = status;
 
@@ -22,7 +22,7 @@ class HomeModel {
 
   bool? get status => _status ;
 
-  Data? get data => _data ;
+  Data get data => _data ?? Data() ;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -69,8 +69,8 @@ class Data {
   List<Products>? _products;
 
 
-  List<Banners>? get banners => _banners;
-  List<Products>? get products => _products;
+  List<Banners> get banners => _banners ?? [];
+  List<Products> get products => _products ?? [];
 
 
   Map<String, dynamic> toJson() {
@@ -145,13 +145,13 @@ class Products {
   bool? _inFavorites;
   bool? _inCart;
 
-  num? get id => _id;
-  num? get price => _price;
-  num? get oldPrice => _oldPrice;
-  num? get discount => _discount;
-  String? get image => _image;
-  String? get name => _name;
-  String? get description => _description;
+  num get id => _id ?? 0;
+  num get price => _price ?? 0;
+  num get oldPrice => _oldPrice ?? 0;
+  num get discount => _discount ?? 0;
+  String get image => _image ?? "";
+  String? get name => _name ?? "";
+  String get description => _description ?? "";
   List<String>? get images => _images;
   bool? get inFavorites => _inFavorites;
   bool? get inCart => _inCart;
@@ -179,7 +179,7 @@ class Products {
 class Banners {
   Banners({
     num? id,
-     required String image ,
+    required String image ,
     dynamic category,
     dynamic product,
   }) {
@@ -197,8 +197,8 @@ class Banners {
   String? _image ;
 
 
-  num? get id => _id;
-  String? get image => _image ?? "";
+  num get id => _id ?? 0;
+  String get image => _image ?? "";
 
 
   Map<String, dynamic> toJson() {
